@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.battery.jni'
+    namespace 'com.chernegasergiy.battery'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.battery.jni"
+        applicationId "com.chernegasergiy.battery"
         minSdk 24
         targetSdk 34
         ndk {
