@@ -2,49 +2,46 @@ package com.chernegasergiy.battery;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.view.Gravity;
-import android.widget.LinearLayout;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.chernegasergiy.battery.fragment.StatusFragment;
+import com.chernegasergiy.battery.fragment.AboutFragment;
 
 public class MainActivity extends Activity {
+    private StatusFragment statusFragment;
+    private AboutFragment aboutFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setGravity(Gravity.CENTER);
-        layout.setPadding(48, 48, 48, 48);
+        statusFragment = new StatusFragment();
+        aboutFragment = new AboutFragment();
 
-        TextView title = new TextView(this);
-        title.setText("PHP Battery Bridge");
-        title.setTextSize(24);
-        title.setGravity(Gravity.CENTER);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_status) {
+                loadFragment(statusFragment);
+                return true;
+            } else if (itemId == R.id.nav_about) {
+                loadFragment(aboutFragment);
+                return true;
+            }
+            return false;
+        });
 
-        TextView version = new TextView(this);
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            version.setText("Version " + pInfo.versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            version.setText("Version unknown");
+        if (savedInstanceState == null) {
+            loadFragment(statusFragment);
         }
-        version.setGravity(Gravity.CENTER);
+    }
 
-        TextView author = new TextView(this);
-        author.setText("\nAuthor: Chernega Sergiy\n");
-        author.setGravity(Gravity.CENTER);
-
-        TextView status = new TextView(this);
-        status.setText("\nStatus: Listening for broadcasts.\nYou can close this app.");
-        status.setGravity(Gravity.CENTER);
-
-        layout.addView(title);
-        layout.addView(version);
-        layout.addView(author);
-        layout.addView(status);
-
-        setContentView(layout);
+    private void loadFragment(Fragment fragment) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }
