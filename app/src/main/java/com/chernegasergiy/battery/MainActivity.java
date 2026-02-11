@@ -1,15 +1,14 @@
 package com.chernegasergiy.battery;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.chernegasergiy.battery.fragment.StatusFragment;
 import com.chernegasergiy.battery.fragment.AboutFragment;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     private StatusFragment statusFragment;
     private AboutFragment aboutFragment;
 
@@ -40,7 +39,7 @@ public class MainActivity extends Activity {
     }
 
     private void loadFragment(Fragment fragment) {
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
