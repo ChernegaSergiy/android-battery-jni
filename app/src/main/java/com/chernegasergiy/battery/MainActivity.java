@@ -4,6 +4,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.chernegasergiy.battery.fragment.StatusFragment;
+import com.chernegasergiy.battery.fragment.AboutFragment;
 
 public class MainActivity extends AppCompatActivity {
     private StatusFragment statusFragment;
