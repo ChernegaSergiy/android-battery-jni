@@ -1,16 +1,22 @@
 <?php
-$host = '127.0.0.1';
-$port = rand(10000, 60000);
-
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-socket_bind($socket, $host, $port);
+$socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
+socket_bind($socket, "com.chernegasergiy.battery");
 socket_listen($socket, 1);
 
-exec("am broadcast -a com.chernegasergiy.battery.GET_STATUS --ei remote_port $port -n com.chernegasergiy.battery/.BatteryReceiver");
-
 $client = socket_accept($socket);
-$response = socket_read($client, 4096);
+$port = socket_read($client, 4096);
+
+if ($port !== false && strpos($port, 'PORT:') === 0) {
+    $port = (int) substr($port, 5);
+
+    $client2 = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+    socket_connect($client2, "127.0.0.1", $port);
+
+    $response = socket_read($client2, 4096);
+    echo $response . PHP_EOL;
+
+    socket_close($client2);
+}
+
 socket_close($client);
 socket_close($socket);
-
-echo $response . PHP_EOL;

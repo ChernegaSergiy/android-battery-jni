@@ -12,11 +12,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".BatteryReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="com.chernegasergiy.battery.GET_STATUS" />
-            </intent-filter>
-        </receiver>
+        <service android:name=".BatteryService" android:exported="false" />
+
+        <receiver android:name=".BatteryReceiver" android:exported="false" />
 
     </application>
+
 </manifest>
