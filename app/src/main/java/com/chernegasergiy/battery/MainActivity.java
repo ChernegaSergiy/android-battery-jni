@@ -3,12 +3,9 @@ package com.chernegasergiy.battery;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.chernegasergiy.battery.fragment.StatusFragment;
-import com.chernegasergiy.battery.fragment.AboutFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     private StatusFragment statusFragment;
     private AboutFragment aboutFragment;
 
